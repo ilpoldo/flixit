@@ -14,5 +14,7 @@ require 'flixit/exceptions'
 require 'flixit/notification'
 
 module Flixit
-  VERSION = File.exist?('VERSION') ? File.read('VERSION') : ""
+  
+  VERSION = ::File.exist?('VERSION') ? ::File.read('VERSION') : ""
+  
 end
