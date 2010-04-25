@@ -32,13 +32,13 @@ protected
 
   def post(path, body)
     begin
-      Flixit::Response.new(HttpClient::Resource.new("https://flixcloud.com/#{path}",
+      Flixit::Response.new(HTTPClient::Resource.new("https://flixcloud.com/#{path}",
                                                        :verify_ssl => OpenSSL::SSL::VERIFY_PEER).post(body, :content_type => 'application/xml', :accept => 'application/xml'))
-    rescue HttpClient::ServerBrokeConnection
+    rescue HTTPClient::ServerBrokeConnection
       raise Flixit::ServerBrokeConnection, $!.message
-    rescue HttpClient::RequestTimeout
+    rescue HTTPClient::RequestTimeout
       raise Flixit::RequestTimeout, $!.message
-    rescue HttpClient::ConnectionRefused
+    rescue HTTPClient::ConnectionRefused
       raise Flixit::ConnectionRefused, $!.message
     end
   end
