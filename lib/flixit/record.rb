@@ -32,15 +32,13 @@ protected
 
   def post(path, body)
     begin
-      client = HTTPClient.new()
-      Flixit::Response.new(client.post("https://flixcloud.com/#{path}", body, 'content_type' => 'application/xml', 
-                                                                              'accept' => 'application/xml'))
-    rescue HTTPClient::KeepAliveDisconnected
-      raise Flixit::ServerBrokeConnection, $!.message
-    rescue HTTPClient::ReceiveTimeoutError
-      raise Flixit::RequestTimeout, $!.message
-    rescue HTTPClient::ConnectTimeoutError
-      raise Flixit::ConnectionRefused, $!.message
+      Flixit::Response.new(RestClient.post "https://flixcloud.com/#{path}", body, :content_type => :xml, :accept => :xml)
+    # rescue HTTPClient::KeepAliveDisconnected
+    #   raise Flixit::ServerBrokeConnection, $!.message
+    # rescue HTTPClient::ReceiveTimeoutError
+    #   raise Flixit::RequestTimeout, $!.message
+    # rescue HTTPClient::ConnectTimeoutError
+    #   raise Flixit::ConnectionRefused, $!.message
     end
   end
 

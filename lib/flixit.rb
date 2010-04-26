@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'httpclient'
+require 'rest_client'
 require 'builder'
 require 'crack'
 

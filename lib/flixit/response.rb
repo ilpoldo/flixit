@@ -3,11 +3,11 @@ class Flixit::Response
   attr_accessor :code, :body, :errors, :body_as_hash
 
   def initialize(response)
-    self.body = response.content
+    self.body = response.body
     case self.code = response.code
     when 401 then raise Flixit::AuthenticationError
     else  
-      self.body_as_hash = Crack::XML.parse(response.content)
+      self.body_as_hash = Crack::XML.parse(response.body)
       self.errors = []
       process_response_xml
     end

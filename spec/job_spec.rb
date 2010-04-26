@@ -9,7 +9,6 @@ context "Create a Job" do
                                                 :output =>     {:url => 's3://flixcloud/somefile.flv'},
                                                 :thumbnails => {:url => "s3://flixcloud/somefile/",:prefix => 'thumbnail'}})
     Fredo.post "https://flixcloud.com/jobs" do
-      p 'fredo responds'
       %{<?xml version="1.0" encoding="UTF-8"?><job><id type="integer">3254</id><initialized-job-at type="datetime">2009-02-11T01:23:54Z</initialized-job-at></job>}
     end
 
@@ -21,7 +20,6 @@ context "Create a Job" do
   
   it "posts a message to flixcloud" do    
     @job.save
-    
   end
   
 end
