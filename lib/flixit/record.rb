@@ -34,11 +34,11 @@ protected
     begin
       Flixit::Response.new(HTTPClient::Resource.new("https://flixcloud.com/#{path}",
                                                        :verify_ssl => OpenSSL::SSL::VERIFY_PEER).post(body, :content_type => 'application/xml', :accept => 'application/xml'))
-    rescue HTTPClient::ConnectTimeoutError
+    rescue HTTPClient::KeepAliveDisconnected
       raise Flixit::ServerBrokeConnection, $!.message
-    rescue HTTPClient::RequestTimeout
+    rescue HTTPClient::ReceiveTimeoutError
       raise Flixit::RequestTimeout, $!.message
-    rescue HTTPClient::ConnectionRefused
+    rescue HTTPClient::ConnectTimeoutError
       raise Flixit::ConnectionRefused, $!.message
     end
   end
