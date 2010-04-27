@@ -13,7 +13,7 @@ begin
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "fredo", ">= 0.1.5"
     
-    gem.add_dependency('restclient', '>= 1.4.0')
+    gem.add_dependency('rest-client', '>= 1.4.0')
     gem.add_dependency('builder', '>= 2.1.1')
     gem.add_dependency('crack', '>= 0.1.6')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
