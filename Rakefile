@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/ilpoldo/flixit"
     gem.authors = ["Leandro Pedroni"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "fredo", ">= 0.1.5"
     
     gem.add_dependency('restclient', '>= 1.4.0')
     gem.add_dependency('builder', '>= 2.1.1')
