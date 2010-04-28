@@ -32,7 +32,12 @@ protected
 
   def post(path, body)
     begin
-      Flixit::Response.new(RestClient.post "https://flixcloud.com/#{path}", body, :content_type => :xml, :accept => :xml)
+      flixcloud = RestClient::Resource.new(
+        "https://flixcloud.com/#{path}",
+        :ssl_ca_file => Flixit::CA_FILE,
+        :verify_ssl => OpenSSL::SSL::VERIFY_PEER
+      )
+      Flixit::Response.new(flixcloud.post  body, :content_type => :xml, :accept => :xml)
     # rescue HTTPClient::KeepAliveDisconnected
     #   raise Flixit::ServerBrokeConnection, $!.message
     # rescue HTTPClient::ReceiveTimeoutError

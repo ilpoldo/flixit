@@ -17,4 +17,5 @@ module Flixit
   
   VERSION = ::File.exist?('VERSION') ? ::File.read('VERSION') : ""
   
+  CA_FILE = ::File.expand_path("flixit/pem_certificate/www.flixcloud.com.pem", ::File.dirname(__FILE__))
 end
