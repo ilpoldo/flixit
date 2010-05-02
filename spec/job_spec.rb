@@ -22,4 +22,17 @@ context "Create a Job" do
     @job.save
   end
   
+  it "has a passthrough option" do    
+    job = Flixit::Job.new(:recipe_id => 1,
+                           :api_key => 'this_is_an_api_key',
+                           :pass_through => YAML.dump({:key => 'value'}),
+                           :file_locations => { :input =>      {:url => 'http://flixcloud.com/somefile.mp4'},
+                                                :output =>     {:url => 's3://flixcloud/somefile.flv'},
+                                                :thumbnails => {:url => "s3://flixcloud/somefile/",:prefix => 'thumbnail'}})
+   job.save
+
+   request = Crack::XML.parse Fredo.books.last[:body]
+   YAML.load(request['api_request']['pass_through']).should eql({:key => 'value'})
+  end
+  
 end
