@@ -28,7 +28,7 @@ context "Create a Job" do
                            :pass_through => YAML.dump({:key => 'value'}),
                            :file_locations => { :input =>      {:url => 'http://flixcloud.com/somefile.mp4'},
                                                 :output =>     {:url => 's3://flixcloud/somefile.flv'},
-                                                :thumbnails => {:url => "s3://flixcloud/somefile/",:prefix => 'thumbnail'}})
+                                                :thumbnails => {:url => "s3://flixcloud/somefile/"}})
    job.save
 
    request = Crack::XML.parse Fredo.books.last[:body]
