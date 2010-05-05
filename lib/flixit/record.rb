@@ -34,6 +34,8 @@ protected
     begin
       flixcloud = RestClient::Resource.new(
         "https://flixcloud.com/#{path}",
+        :ssl_client_cert  =>  ENV['SSL_CERT'] ? OpenSSL::X509::Certificate.new(ENV['SSL_CERT']) : nil,
+        :ssl_client_key   =>  ENV['SSL_KEY'] ? OpenSSL::PKey::RSA.new(ENV['SSL_KEY'], "") : nil,
         :ssl_ca_file => Flixit::CA_FILE,
         :verify_ssl => OpenSSL::SSL::VERIFY_PEER
       )
