@@ -33,7 +33,7 @@ protected
   def post(path, body)
     begin
       flixcloud = RestClient::Resource.new(
-        "https://flixcloud.com/#{path}",
+        "https://www.flixcloud.com/#{path}",
         :verify_ssl => false
       )
       Flixit::Response.new(flixcloud.post  body, :content_type => :xml, :accept => :xml)
