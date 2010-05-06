@@ -9,7 +9,7 @@ context "Create a Job" do
                                                 :output =>     {:url => 's3://flixcloud/somefile.flv'},
                                                 :thumbnails => {:url => "s3://flixcloud/somefile/",:prefix => 'thumbnail'}})
     Fredo.post "https://www.flixcloud.com/jobs" do
-      %{<?xml version="1.0" encoding="UTF-8"?><job><id type="integer">3254</id><initialized-job-at type="datetime">2009-02-11T01:23:54Z</initialized-job-at></job>}
+      [201, {}, %{<?xml version="1.0" encoding="UTF-8"?><job><id type="integer">3254</id><initialized-job-at type="datetime">2009-02-11T01:23:54Z</initialized-job-at></job>}]
     end
 
   end
@@ -19,7 +19,7 @@ context "Create a Job" do
   end
   
   it "posts a message to flixcloud" do    
-    @job.save
+    @job.save.should be_true
   end
   
   it "has a passthrough option" do    
@@ -35,4 +35,18 @@ context "Create a Job" do
    YAML.load(request['api_request']['pass_through']).should eql({:key => 'value'})
   end
   
+  it "should follow redirects" do
+    # Setup redirection to http
+    Fredo.forget
+    Fredo.post "https://www.flixcloud.com/jobs" do
+      if env['rack.url_scheme'] == 'https'
+        [303, {'LOCATION' => "http://www.flixcloud.com/jobs"}, 'This item has moved permanently']
+      else
+        [201, {}, %{<?xml version="1.0" encoding="UTF-8"?><job><id type="integer">3254</id><initialized-job-at type="datetime">2009-02-11T01:23:54Z</initialized-job-at></job>}]
+      end
+    end
+    
+    @job.should be_valid
+    @job.save.should be_true
+  end
 end
